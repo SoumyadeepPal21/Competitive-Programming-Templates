@@ -1,0 +1,37 @@
+<snippet>
+	<content><![CDATA[
+const int maxN = 3e5 + 10;
+bool isprm[maxN];
+vector<int> primes;
+void seive() {
+	for (int i = 0; i < maxN; i++) isprm[i] = true; isprm[0] = isprm[1] = false;
+	for (int i = 2; i * i < maxN; i++) if (isprm[i]) for (int j = i * i; j < maxN; j += i) isprm[j] = false;
+	for (int i = 2; i < maxN; i++) if (isprm[i]) primes.push_back(i);
+}
+
+const int Nmax = 1e6 + 10;
+int spf[Nmax]; //spf[i] = smallest prime factor of i
+void SPF() {
+	for (int i = 1; i < Nmax; i++) spf[i] = i;
+	for (int i = 2; i * i < Nmax; i++) if (spf[i] == i)
+			for (int j = i * i; j < Nmax; j += i) if (spf[j] == j)
+					spf[j] = i;
+}
+map<int, int> get(int x) {
+	map<int, int> ret; while (x != 1) { ret[spf[x]]++; x /= spf[x]; } return ret;
+}
+
+vector<int> fac(int x) {
+	vector<int> a, b;
+	for (int i = 1; i * i <= x; ++i) if (x % i == 0) {
+			a.push_back(i); if (i * i < x) b.push_back(x / i);
+		}
+	reverse(b.begin(), b.end()); a.insert(a.end(), b.begin(), b.end()); return a;
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>seive</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

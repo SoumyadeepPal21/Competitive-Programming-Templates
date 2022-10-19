@@ -1,0 +1,64 @@
+<snippet>
+	<content><![CDATA[
+const int inf = 1e18;
+struct STLazy {
+  int n;
+  vector<int> t, lazy;
+
+  STLazy(int n) : n(n), t(4 * n + 8), lazy(4 * n + 8) {}
+
+  int merge(int L, int R) {
+    // change return L + R
+  }
+  void apply(int v, int x) {
+    // t[v] += x;
+    // lazy[v] += x;
+  }
+  void push(int v, int tl, int tr) {
+    if (tl != tr && lazy[v] != 0) {
+      apply(2 * v, lazy[v]);
+      apply(2 * v + 1, lazy[v]);
+    }
+    lazy[v] = 0;
+  }
+  void update(int v, int tl, int tr, int l, int r, int x) {
+    if (tr < l || tl > r || l > r) return;
+    if (l <= tl && tr <= r) {
+      apply(v, x);
+      return;
+    }
+    push(v, tl, tr);
+    int tm = (tl + tr) / 2;
+    update(2 * v, tl, tm, l, r, x);
+    update(2 * v + 1, tm + 1, tr, l, r, x);
+    t[v] = merge(t[2 * v], t[2 * v + 1]);
+  }
+
+  int query(int v, int tl, int tr, int l, int r) {
+    if (tr < l || tl > r || l > r) return inf;
+    if (l <= tl && tr <= r) {
+      return t[v];
+    }
+    push(v, tl, tr);
+    int tm = (tl + tr) / 2;
+    int L = query(2 * v, tl, tm, l, r);
+    int R = query(2 * v + 1, tm + 1, tr, l, r);
+    return merge(L, R);
+  }
+
+  void update(int l, int r, int val) {
+    update(1, 1, n, l, r, val);
+  }
+
+  int query(int l, int r) {
+    return query(1, 1, n, l, r);
+  }
+
+};
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>STLAZY</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

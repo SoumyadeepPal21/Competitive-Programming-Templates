@@ -1,0 +1,75 @@
+<snippet>
+	<content><![CDATA[
+#include<bits/stdc++.h>
+using namespace std;
+template <class T> ostream &operator << (ostream &os, const vector<T> &p) { os << "["; for (auto&it : p) os << it << " "; return os << "]";}
+template <class S, class T> ostream &operator << (ostream &os, const pair<S, T> &p) { return os << "(" << p.first << "," << p.second << ")";}
+#ifndef ONLINE_JUDGE
+#define deb(...) dbs(#__VA_ARGS__,__VA_ARGS__)
+template <class T> void dbs(string str, T t) { cerr << str << ":" << t << "\n";}
+template<class T, class...S> void dbs(string str, T t, S... s) { int idx = str.find(','); cerr << str.substr(0, idx) << ":" << t << ","; dbs(str.substr(idx + 1), s...);}
+#else
+#define deb(...){}
+#endif
+
+
+#define int long long
+#define sz(x) (int)(x.size())
+#define pb push_back
+#define all(x) x.begin(), x.end()
+#define vi vector<int>
+#define pii pair<int, int>
+#define vii vector<pii>
+#define fi first
+#define se second
+#define rep(i,n) for(int i = 0; i < n; i++)
+#define re(i,n) for(int i = 1; i <= n; i++)
+template<class T> inline T Bit(T x, int i) { return (x >> i) & 1;}
+
+
+// " \n"[i == n - 1];
+
+auto random_seed = chrono::steady_clock::now().time_since_epoch().count();
+#define LL long long
+mt19937 rng(random_seed);
+#define rnd(l, r) uniform_int_distribution<LL>(l, r)(rng)
+
+
+
+
+void print(int t) {
+  cout << t << '\n';
+  rep(i, t) {
+
+  }
+}
+
+void fun1() {
+  freopen("ip1.in", "w", stdout);
+  int t = 0, sum = 0;
+  print(t);
+}
+
+void fun2() {
+  freopen("ip2.in", "w", stdout);
+  int t = 0, sum = 0;
+  print(t);
+}
+
+
+signed main() {
+  ios_base :: sync_with_stdio(0); cin.tie(0); cout.tie(0);
+  srand(unsigned(time(0)));
+  int tc = 0;
+  fun1();
+  return 0;
+}
+
+
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>tester</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

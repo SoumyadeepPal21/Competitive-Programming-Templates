@@ -1,0 +1,53 @@
+<snippet>
+	<content><![CDATA[
+
+template<typename T, class bin_op>
+struct segment_tree {
+#define lc i * 2
+#define rc i * 2 + 1
+#define m (l + r) / 2
+
+	T e; // default value
+	bin_op op;
+	vector<T> tr;
+
+	segment_tree(int _n, T _e, bin_op _op) : e(_e), op(_op) {
+		tr = vector<T>(4 * _n + 5, e);
+	}
+
+	void update(int i, int l, int r, int u, T v) {
+		if (l == r) {
+			tr[i] = op(tr[i], v);
+		} else {
+			if (u <= m) {
+				update(lc, l, m, u, v);
+			} else {
+				update(rc, m + 1, r, u, v);
+			}
+			tr[i] = op(tr[lc], tr[rc]);
+		}
+	}
+
+	T query(int i, int l, int r, int L, int R) {
+		if (l > R || r < L || L > R) {
+			return e;
+		} else if (L <= l && r <= R) {
+			return tr[i];
+		} else {
+			return op(query(lc, l, m, L, R),
+			          query(rc, m + 1, r, L, R));
+		}
+	}
+
+#undef lc
+#undef rc
+#undef m
+};
+
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>segtree_kuroni</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

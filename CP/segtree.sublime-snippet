@@ -1,0 +1,62 @@
+<snippet>
+	<content><![CDATA[
+const int inf = 0;
+// inf = 0 if sum, inf = 1e18 if min, inf = -1e18 if max
+struct ST {
+  int N;
+  vector<int> t;
+  ST(int n) {
+    N = n;
+    t.assign(4 * n + 10, inf);
+  }
+  int merge(int L, int R) {
+    // change return min(L, R);
+  }
+  void build(int n, int b, int e) {
+    if (b == e) {
+      // t[n] = inf;
+      return;
+    }
+    int mid = (b + e) >> 1, l = n << 1, r = l | 1;
+    build(l, b, mid);
+    build(r, mid + 1, e);
+    t[n] = merge(t[2 * n], t[2 * n + 1]);
+  }
+  void update(int n, int b, int e, int i, int x) {
+    if (b > i || e < i) return;
+    if (b == e && b == i) {
+      t[n] = x;
+      return;
+    }
+    int mid = (b + e) >> 1, l = n << 1, r = l | 1;
+    update(l, b, mid, i, x);
+    update(r, mid + 1, e, i, x);
+    t[n] = merge(t[2 * n], t[2 * n + 1]);
+  }
+  int query(int n, int b, int e, int i, int j) {
+    if (b > j || e < i || i > j) return inf;
+    if (b >= i && e <= j) return t[n];
+    int mid = (b + e) >> 1, l = n << 1, r = l | 1;
+    int L = query(l, b, mid, i, j);
+    int R = query(r, mid + 1, e, i, j);
+    return merge(L, R);
+  }
+  // range query
+  int query(int L, int R) {
+    return query(1, 1, N, L, R);
+  }
+  // position query
+  int query(int pos) {
+    return query(1, 1, N, pos, pos);
+  }
+  // only position update
+  void update(int pos, int val) {
+    update(1, 1, N, pos, val);
+  }
+};
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>segtree</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

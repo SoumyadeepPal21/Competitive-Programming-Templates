@@ -1,0 +1,28 @@
+<snippet>
+	<content><![CDATA[
+#include<bits/stdc++.h>
+using namespace std;
+template <class T> ostream &operator << (ostream &os, const vector<T> &p) { os << "["; for (auto&it : p) os << it << " "; return os << "]";}
+template <class T> ostream &operator << (ostream &os, const set<T>&p) { os << "["; for (auto&it : p) os << it << " "; return os << "]";}
+template <class T> ostream &operator << (ostream &os, const multiset<T>&p) { os << "["; for (auto&it : p) os << it << " "; return os << "]";}
+template <class S, class T> ostream &operator << (ostream &os, const map<S, T> &p) { os << "["; for (auto&it : p) os << it << " "; return os << "]";}
+template <class S, class T> ostream &operator << (ostream &os, const pair<S, T> &p) { return os << "(" << p.first << "," << p.second << ")";}
+template <class S, class T> ostream &operator << (ostream &os, const unordered_map<S, T> &v) { for (auto i : v) os << '(' << i.first << "=>" << i.second << ')' << ' '; return os;}
+#ifndef ONLINE_JUDGE
+#define debarr(a, x, y) cerr << (#a) << ":"; for(int i = x; i <= y; i++) cerr << a[i] << " " ; cerr<< endl;
+#define debmat(mat, row, col)  cerr << (#mat) << ":\n"; for(int i = 0; i < row; i++){ for(int j = 0; j < col; j++) cerr << mat[i][j] << " "; cerr << endl;}
+#define deb(...) dbs(#__VA_ARGS__,__VA_ARGS__)
+template <class T> void dbs(string str, T t) { cerr << str << ":" << t << "\n";}
+template<class T, class...S>void dbs(string str, T t, S... s) { int idx = str.find(','); cerr << str.substr(0, idx) << ":" << t << ","; dbs(str.substr(idx + 1), s...);}
+#else
+#define deb(...){}
+#define debarr(a,x,y){}
+#define debmat(mat,row,col){}
+#endif
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>deb</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

@@ -1,0 +1,83 @@
+<snippet>
+	<content><![CDATA[
+const int inf = 1e18;
+
+struct Node {
+  //Use required attributes
+  int val;
+
+  //Default constructor
+  Node() {
+    val = 0;
+  }
+
+  // constructor
+  Node(int Val) {
+    val = Val;
+  }
+};
+
+struct ST {
+  int N;
+  vector<Node> st;
+  ST(int n) {
+    N = n;
+    st.resize(4 * N + 5);
+  }
+
+  void merge(Node &cur, Node &l, Node &r) {
+    // cur.val = l.val + r.val;
+  }
+
+  Node Query(int node, int L, int R, int i, int j) {
+    if (j < L || i > R || L > R)
+      return Node();
+    if (i <= L && R <= j)
+      return st[node];
+    int M = (L + R) / 2;
+    Node left = Query(node * 2, L, M, i, j);
+    Node right = Query(node * 2 + 1, M + 1, R, i, j);
+    Node cur;
+    merge(cur, left, right);
+    return cur;
+  }
+
+  Node pQuery(int node, int L, int R, int pos) {
+    if (L > R || pos > R || L > pos) return Node();
+    if (L == R) return st[node];
+    int M = (L + R) / 2;
+    if (pos <= M) return pQuery(node * 2, L, M, pos);
+    else return pQuery(node * 2 + 1, M + 1, R, pos);
+  }
+
+  void pUpdate(int node, int L, int R, int pos, Node &v) {
+    if (L == R) {
+      // change
+      st[node] = v;
+      return;
+    }
+    int M = (L + R) / 2;
+    if (pos <= M) pUpdate(node * 2, L, M, pos, v);
+    else pUpdate(node * 2 + 1, M + 1, R, pos, v);
+    merge(st[node], st[node * 2], st[node * 2 + 1]);
+  }
+  // range query
+  Node query(int L, int R) {
+    return Query(1, 1, N, L, R);
+  }
+  // positional query
+  Node query(int pos) {
+    return pQuery(1, 1, N, pos);
+  }
+  // position update
+  void update(int pos, Node val) {
+    pUpdate(1, 1, N, pos, val);
+  }
+};
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>segnode</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>
