@@ -1,12 +1,5 @@
-<snippet>
-	<content><![CDATA[
+
 auto random_seed = chrono::steady_clock::now().time_since_epoch().count();
 #define LL long long
 mt19937 rng(random_seed);
 #define rnd(l, r) uniform_int_distribution<LL>(l, r)(rng)
-]]></content>
-	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
-	<tabTrigger>rnd</tabTrigger>
-	<!-- Optional: Set a scope to limit where the snippet will trigger -->
-	<scope>source.c++</scope>
-</snippet>
